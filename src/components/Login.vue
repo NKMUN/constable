@@ -37,6 +37,7 @@ export default {
           position: 'top',
           duration: 1000
         })
+        this.$router.replace('/')
       } catch(e) {
         // nop
         console.error(e)

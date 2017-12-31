@@ -12,7 +12,8 @@ import {
   Loadmore,
   Field,
   Indicator,
-  Toast
+  Toast,
+  MessageBox
 } from 'mint-ui'
 
 Vue.config.productionTip = false
@@ -24,6 +25,7 @@ Vue.component( Loadmore.name, Loadmore )
 Vue.component( Field.name, Field )
 Vue.prototype.$toast = Toast
 Vue.prototype.$indicator = Indicator
+Vue.prototype.$msgbox = MessageBox
 
 // superagent token injection
 Vue.prototype.$agent = superagentUse(superagent)
