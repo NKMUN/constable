@@ -2,12 +2,12 @@
   <div class="login">
     <mt-header title="Constable @ NKMUN" />
 
-    <img src="../assets/nklogo.png" width="280px" height="172px">
-
     <mt-field label="用户" placeholder="请输入用户名" v-model="user" />
     <mt-field label="密码" placeholder="请输入密码" type="password" v-model="password" />
 
     <mt-button type="primary" @click="login">登录</mt-button>
+
+    <img src="../assets/nklogo.png" width="280px" height="172px">
   </div>
 </template>
 
