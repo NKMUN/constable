@@ -10,6 +10,9 @@
     <mt-cell title="签到授权" is-link to="/preauth/">
     </mt-cell>
 
+    <mt-cell title="签到统计" is-link to="/records/">
+    </mt-cell>
+
   </div>
 </template>
 

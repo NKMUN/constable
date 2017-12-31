@@ -5,6 +5,9 @@ import Index from '@/components/Index'
 import Events from '@/components/Events'
 import EventPage from '@/components/EventPage'
 import PreAuth from '@/components/PreAuth'
+import Records from '@/components/Records'
+import RecordPage from '@/components/RecordPage'
+import EventRecord from '@/components/EventRecord'
 
 Vue.use(Router)
 
@@ -35,6 +38,23 @@ export default new Router({
       path: '/preauth/',
       name: 'Preauth',
       component: PreAuth
+    },
+    {
+      path: '/records/',
+      name: 'Records',
+      component: Records
+    },
+    {
+      path: '/records/:id',
+      name: 'Record',
+      component: RecordPage,
+      props: true
+    },
+    {
+      path: '/records/:id/list',
+      name: 'EventRecord',
+      component: EventRecord,
+      props: true
     },
   ]
 })

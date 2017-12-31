@@ -1,15 +1,15 @@
 <template>
-  <div class="events">
-    <mt-header title="活动列表" fixed>
+  <div class="records">
+    <mt-header title="签到记录" fixed>
       <router-link to="/" slot="left">
         <mt-button icon="back"> 返回 </mt-button>
       </router-link>
-      <router-link to="/events/~new" slot="right">
-        <mt-button> 新建 </mt-button>
-      </router-link>
     </mt-header>
 
-    <EventList :link-generator="({ id }) => `/events/${id}`"/>
+    <EventList
+      :link-generator="({ id }) => `/records/${id}`"
+      :filter="ev => ev.start_at < Date.now()"
+    />
 
   </div>
 </template>
@@ -19,15 +19,20 @@ import { mapGetters } from 'vuex'
 import EventList from './EventList'
 
 export default {
-  name: 'event-mgmt',
+  name: 'records-mgmt',
   components: {
     EventList
+  },
+  methods: {
+    filterNotStarted(ev) {
+      return ev.start_at < Date.now()
+    }
   }
 }
 </script>
 
 <style lang="stylus">
-.events
+.records
   height: 100%
   padding-top: 40px    // fixed mint-header
   display: flex
