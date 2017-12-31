@@ -4,6 +4,7 @@ import Login from '@/components/Login'
 import Index from '@/components/Index'
 import Events from '@/components/Events'
 import EventPage from '@/components/EventPage'
+import PreAuth from '@/components/PreAuth'
 
 Vue.use(Router)
 
@@ -33,7 +34,7 @@ export default new Router({
     {
       path: '/preauth/',
       name: 'Preauth',
-      component: Index
+      component: PreAuth
     },
   ]
 })
