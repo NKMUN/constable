@@ -6,28 +6,30 @@
       </router-link>
     </mt-header>
 
-    <mt-loadmore
-      ref="loadmore"
-      :top-method="refresh"
-      :top-all-loaded="false"
-      :bottom-method="fetch"
-      bottom-pull-text="上拉加载更多"
-      bottom-drop-text="释放加载更多"
-      :bottom-all-loaded="page === total"
-    >
-      <div class="wrapper">
-        <table>
-          <tbody>
-            <tr v-for="record in records">
-              <td>{{ record.name }}</td>
-              <td>{{ record.reported_at ? formatDate(record.reported_at, 'yyyy-mm-dd HH:MM') : '尚未签到' }}</td>
-              <td>{{ conclusionText(record.conclusion) }}</td>
-            </tr>
-          </tbody>
-        </table>
-        <p class="hint">{{ page === total ? '没有更多数据' : '上拉加载更多' }}</p>
-      </div>
-    </mt-loadmore>
+    <div class="wrapper">
+      <mt-loadmore
+        ref="loadmore"
+        :top-method="refresh"
+        :top-all-loaded="false"
+        :bottom-method="fetch"
+        bottom-pull-text="上拉加载更多"
+        bottom-drop-text="释放加载更多"
+        :bottom-all-loaded="page === total"
+      >
+        <div class="inner-wrapper">
+          <table>
+            <tbody>
+              <tr v-for="record in records">
+                <td>{{ record.name }}</td>
+                <td>{{ record.reported_at ? formatDate(record.reported_at, 'yyyy-mm-dd HH:MM') : '尚未签到' }}</td>
+                <td>{{ conclusionText(record.conclusion) }}</td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="hint">{{ page === total ? '没有更多数据' : '上拉加载更多' }}</p>
+        </div>
+      </mt-loadmore>
+    </div>
   </div>
 </template>
 
@@ -55,7 +57,7 @@ export default {
     async refresh() {
       this.page = 0
       this.records = []
-      this.fetch()
+      this.$refs.loadmore.fillContainer()
     },
     formatDate,
     conclusionText(v) {
@@ -78,7 +80,7 @@ export default {
         }
       } = await this.$agent.get(`/api/orgs/${this.org}/events/${this.id}/records`)
           .query({
-            pageSize: 20,
+            pageSize: 10,
             page: this.page,
             result,
             role
@@ -87,8 +89,12 @@ export default {
       this.records = [ ...this.records, ...body ]
       this.page = Math.min(total, this.page + 1)
       this.total = total
-      this.$refs.loadmore.onTopLoaded()
-      this.$refs.loadmore.onBottomLoaded()
+      if (this.$refs.loadmore.translate) {
+        this.$refs.loadmore.onTopLoaded()
+        this.$refs.loadmore.onBottomLoaded()
+      } else {
+        this.$refs.loadmore.bottomStatus = 'pull'
+      }
     }
   },
   mounted() {
@@ -100,23 +106,21 @@ export default {
 <style lang="stylus" scoped>
 .event-record
   height: 100%
-  padding-top: 40px    // fixed mint-header
-  display: flex
-  flex-direction: column
-  align-items: stretch
-  justify-content: center
-  .mint-loadmore
-    flex-grow: 1
-    flex-shrink: 0
 .wrapper
-  min-height: calc(100vh - 40px)
+  top: 40px
+  position: relative
   width: 100%
+  height: calc(100vh - 40px)
+  overflow: scroll
+.inner-wrapper
+  // min-height: calc(100vh - 50px)
+  padding-bottom: 1em
   table
     width: 100%
     td
       padding: .25em 1ch
   .hint
-    margin: 1em 0
+    margin: 1em 0 0 0
     text-align: center
     font-size: 9pt
 </style>

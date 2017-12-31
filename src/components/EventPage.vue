@@ -161,4 +161,7 @@ export default {
   display: block
   margin: 1em auto
   padding: .5em 4ch
+.hint
+  margin: 1em auto
+  text-align: center
 </style>
