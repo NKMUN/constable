@@ -19,7 +19,6 @@ export default {
   mounted() {
     if (!checkToken(this.token)) {
       this.$toast({
-        position: 'top',
         message: this.token ? '登录已过期，请重新登录' : '请先登录'
       })
       this.$router.push('/login/')
