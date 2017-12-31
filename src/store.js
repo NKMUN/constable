@@ -42,11 +42,6 @@ export default new Vuex.Store({
       if (!state.token) return null
       const payload = jwtDecode(state.token)
       return payload.org
-    },
-    identifier: state => {
-      if (!state.token) return null
-      const payload = jwtDecode(state.token)
-      return payload.identifier
     }
   }
 })
