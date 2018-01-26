@@ -17,15 +17,16 @@
         :bottom-all-loaded="page === total"
       >
         <div class="inner-wrapper">
-          <table>
-            <tbody>
-              <tr v-for="record in records">
-                <td>{{ record.name }}</td>
-                <td>{{ record.reported_at ? formatDate(record.reported_at, 'yyyy-mm-dd HH:MM') : '尚未签到' }}</td>
-                <td>{{ conclusionText(record.conclusion) }}</td>
-              </tr>
-            </tbody>
-          </table>
+          <ul>
+            <li v-for="record in records" :key="record.id">
+              <div>
+                <span class="name">{{ record.name }}</span><span class="conclusion">{{ conclusionText(record.conclusion) }}</span>
+              </div>
+              <div v-if="record.extra">
+                <span class="school" >{{ record.extra.school }}</span><span class="committee">{{ record.extra.committee }}</span>
+              </div>
+            </li>
+          </ul>
           <p class="hint">{{ page === total ? '没有更多数据' : '上拉加载更多' }}</p>
         </div>
       </mt-loadmore>
@@ -57,7 +58,7 @@ export default {
     async refresh() {
       this.page = 0
       this.records = []
-      this.$refs.loadmore.fillContainer()
+      this.fetch()
     },
     formatDate,
     conclusionText(v) {
@@ -65,7 +66,7 @@ export default {
         case 'attended': return '正常'
         case 'late': return '迟到'
         case 'unattended': return '缺席'
-        default: return '缺席'
+        default: return '未到'
       }
     },
     async fetch() {
@@ -95,6 +96,7 @@ export default {
       } else {
         this.$refs.loadmore.bottomStatus = 'pull'
       }
+      this.$refs.loadmore.fillContainer()
     }
   },
   mounted() {
@@ -115,10 +117,17 @@ export default {
 .inner-wrapper
   // min-height: calc(100vh - 50px)
   padding-bottom: 1em
-  table
-    width: 100%
-    td
+  ul
+    li
       padding: .25em 1ch
+      div
+        display: flex
+        flex-direction: row
+        align-items: flex-start
+        justify-content: space-between
+      .school, .committee
+        font-size: 80%
+        color: #909399
   .hint
     margin: 1em 0 0 0
     text-align: center
