@@ -26,15 +26,11 @@ export default {
 }
 </script>
 
-<style lang="stylus">
-.events
-  height: 100%
-  padding-top: 40px    // fixed mint-header
-  display: flex
-  flex-direction: column
-  align-items: stretch
-  justify-content: center
-  .mint-loadmore
-    flex-grow: 1
-    flex-shrink: 0
+<style lang="stylus" scoped>
+.event-list
+  top: 40px
+  position: relative
+  width: 100%
+  height: calc(100vh - 40px)
+  overflow: scroll
 </style>

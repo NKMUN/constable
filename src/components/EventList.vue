@@ -82,18 +82,17 @@ export default {
 }
 </script>
 
-<style lang="stylus">
-.event-list
-  .empty-list
-    text-align: center
-    padding: 6px 10px
-    .icon
-      margin: 4px
-      color: #26a2ff
-      svg
-        width: 14pt
-        height: 14pt
-        padding: 5pt
-    .hint
-      font-size: 9pt
+<style lang="stylus" scoped>
+.empty-list
+  text-align: center
+  padding: 6px 10px
+  .icon
+    margin: 4px
+    color: #26a2ff
+    svg
+      width: 14pt
+      height: 14pt
+      padding: 5pt
+  .hint
+    font-size: 9pt
 </style>
