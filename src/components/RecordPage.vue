@@ -112,5 +112,7 @@ export default {
   margin: 1em auto
   padding: .5em 4ch
 .record-selector
-  padding-top: 40px
+  margin-top: 40px
+  height: calc(100vh - 40px)
+  overflow: scroll
 </style>
