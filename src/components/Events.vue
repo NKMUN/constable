@@ -28,7 +28,7 @@ export default {
 
 <style lang="stylus" scoped>
 .event-list
-  top: 40px
+  margin-top: 40px
   position: relative
   width: 100%
   height: calc(100vh - 40px)
